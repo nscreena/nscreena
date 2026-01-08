@@ -1,0 +1,534 @@
+@import "tailwindcss";
+
+:root {
+  /* Brown color palette - Degen Cafe Vibes */
+  --bg-dark: #0f0b08;
+  --bg-main: #1a1410;
+  --bg-card: #252019;
+  --bg-card-hover: #2f2820;
+  --bg-elevated: #3a3228;
+  
+  /* Accent colors */
+  --brown-primary: #c4956a;
+  --brown-light: #e8d4bc;
+  --brown-muted: #8b7355;
+  --cream: #f5efe6;
+  --cream-muted: #d4cdc0;
+  
+  /* Status colors */
+  --green: #7cb87c;
+  --green-bright: #8fce8f;
+  --red: #e05555;
+  --red-bright: #ff6b6b;
+  --yellow: #d4b96a;
+  --orange: #e89850;
+  
+  /* Text */
+  --text-primary: #f5efe6;
+  --text-secondary: #a89b8a;
+  --text-muted: #6b6055;
+  
+  /* Border */
+  --border: #3a3228;
+  --border-light: #4a4238;
+}
+
+@theme inline {
+  --color-bg-dark: var(--bg-dark);
+  --color-bg-main: var(--bg-main);
+  --color-bg-card: var(--bg-card);
+  --color-bg-card-hover: var(--bg-card-hover);
+  --color-bg-elevated: var(--bg-elevated);
+  
+  --color-brown-primary: var(--brown-primary);
+  --color-brown-light: var(--brown-light);
+  --color-brown-muted: var(--brown-muted);
+  --color-cream: var(--cream);
+  --color-cream-muted: var(--cream-muted);
+  
+  --color-green: var(--green);
+  --color-green-bright: var(--green-bright);
+  --color-red: var(--red);
+  --color-red-bright: var(--red-bright);
+  --color-yellow: var(--yellow);
+  --color-orange: var(--orange);
+  
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  
+  --color-border: var(--border);
+  --color-border-light: var(--border-light);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  min-height: 100vh;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--brown-muted);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brown-primary);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(196, 149, 106, 0); }
+  50% { box-shadow: 0 0 12px 2px rgba(196, 149, 106, 0.3); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg-card) 25%,
+    var(--bg-elevated) 50%,
+    var(--bg-card) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* New token highlight */
+.new-token {
+  animation: fadeIn 0.4s ease-out, pulse-glow 1s ease-out;
+}
+
+/* Hot token (90%+ bonding) - subtle red border */
+.hot-token {
+  border-color: rgba(224, 85, 85, 0.4) !important;
+}
+
+/* Utility Classes */
+.glass {
+  background: rgba(37, 32, 25, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+}
+
+.hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* Glowing Market Cap for 100K+ */
+.mcap-glow {
+  text-shadow: 0 0 8px var(--red), 0 0 16px var(--red), 0 0 24px var(--red-bright);
+  animation: mcap-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes mcap-pulse {
+  0%, 100% { 
+    text-shadow: 0 0 8px var(--red), 0 0 16px var(--red);
+  }
+  50% { 
+    text-shadow: 0 0 12px var(--red), 0 0 24px var(--red), 0 0 32px var(--red-bright);
+  }
+}
+
+/* AGGRESSIVE RED GLOW for 90%+ Bonding Curve Text */
+.bonding-glow-red {
+  text-shadow: 0 0 8px var(--red), 0 0 16px var(--red), 0 0 24px var(--red-bright), 0 0 32px var(--red);
+  animation: bonding-pulse-red 0.8s ease-in-out infinite;
+}
+
+@keyframes bonding-pulse-red {
+  0%, 100% { 
+    text-shadow: 0 0 8px var(--red), 0 0 16px var(--red), 0 0 24px var(--red-bright);
+  }
+  50% { 
+    text-shadow: 0 0 16px var(--red), 0 0 32px var(--red), 0 0 48px var(--red-bright), 0 0 64px var(--red);
+  }
+}
+
+/* AGGRESSIVE RED GLOW for 90%+ Progress Bar */
+.progress-glow-red {
+  box-shadow: 0 0 10px var(--red), 0 0 20px var(--red), 0 0 30px var(--red-bright);
+  animation: progress-bar-pulse-red 0.8s ease-in-out infinite;
+}
+
+@keyframes progress-bar-pulse-red {
+  0%, 100% { 
+    box-shadow: 0 0 8px var(--red), 0 0 16px var(--red);
+  }
+  50% { 
+    box-shadow: 0 0 16px var(--red), 0 0 32px var(--red), 0 0 48px var(--red-bright);
+  }
+}
+
+/* ============================================
+   GTA / STREET STYLE AESTHETICS
+   ============================================ */
+
+/* Pricedown GTA Font */
+.font-gta {
+  font-family: 'Pricedown', 'Impact', sans-serif;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Graffiti/Marker Font */
+.font-marker {
+  font-family: var(--font-marker), 'Permanent Marker', cursive;
+}
+
+/* GTA-style text with stroke */
+.gta-text {
+  font-family: 'Pricedown', 'Impact', sans-serif;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--cream);
+  text-shadow: 
+    3px 3px 0 #000,
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    0 3px 0 #000;
+}
+
+/* Graffiti tag style */
+.graffiti-tag {
+  font-family: var(--font-marker), 'Permanent Marker', cursive;
+  transform: rotate(-2deg);
+  display: inline-block;
+}
+
+/* ============================================
+   SLIDE-IN ANIMATIONS
+   ============================================ */
+
+@keyframes slideInLeft {
+  from { 
+    opacity: 0; 
+    transform: translateX(-30px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateX(0); 
+  }
+}
+
+@keyframes slideInRight {
+  from { 
+    opacity: 0; 
+    transform: translateX(30px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateX(0); 
+  }
+}
+
+@keyframes slideInUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+.slide-in-left {
+  animation: slideInLeft 0.4s ease-out forwards;
+}
+
+.slide-in-right {
+  animation: slideInRight 0.4s ease-out forwards;
+}
+
+.slide-in-up {
+  animation: slideInUp 0.4s ease-out forwards;
+}
+
+/* Staggered slide-in for lists */
+.slide-in-stagger > *:nth-child(1) { animation-delay: 0ms; }
+.slide-in-stagger > *:nth-child(2) { animation-delay: 50ms; }
+.slide-in-stagger > *:nth-child(3) { animation-delay: 100ms; }
+.slide-in-stagger > *:nth-child(4) { animation-delay: 150ms; }
+.slide-in-stagger > *:nth-child(5) { animation-delay: 200ms; }
+.slide-in-stagger > *:nth-child(6) { animation-delay: 250ms; }
+.slide-in-stagger > *:nth-child(7) { animation-delay: 300ms; }
+.slide-in-stagger > *:nth-child(8) { animation-delay: 350ms; }
+.slide-in-stagger > *:nth-child(9) { animation-delay: 400ms; }
+.slide-in-stagger > *:nth-child(10) { animation-delay: 450ms; }
+
+/* ============================================
+   TORN / RIPPED EDGE CARDS
+   ============================================ */
+
+.torn-edge {
+  position: relative;
+  background: var(--bg-card);
+}
+
+.torn-edge::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10'%3E%3Cpath d='M0,10 Q5,0 10,8 T20,10 T30,6 T40,10 T50,4 T60,10 T70,7 T80,10 T90,5 T100,10 L100,10 L0,10 Z' fill='%23252019'/%3E%3C/svg%3E") repeat-x;
+  background-size: 100px 8px;
+}
+
+.torn-edge::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10'%3E%3Cpath d='M0,0 Q5,10 10,2 T20,0 T30,4 T40,0 T50,6 T60,0 T70,3 T80,0 T90,5 T100,0 L100,0 L0,0 Z' fill='%23252019'/%3E%3C/svg%3E") repeat-x;
+  background-size: 100px 8px;
+  transform: rotate(180deg);
+}
+
+/* ============================================
+   WANTED POSTER STYLE (for hot tokens)
+   ============================================ */
+
+.wanted-poster {
+  position: relative;
+  background: linear-gradient(135deg, #3d3426 0%, #2a2318 50%, #3d3426 100%);
+  border: 3px solid #5c4d3a;
+  box-shadow: 
+    inset 0 0 30px rgba(0,0,0,0.5),
+    0 4px 20px rgba(0,0,0,0.5);
+}
+
+.wanted-poster::before {
+  content: '🔥 WANTED 🔥';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Pricedown', 'Impact', sans-serif;
+  font-size: 14px;
+  letter-spacing: 2px;
+  color: var(--red);
+  background: var(--bg-dark);
+  padding: 2px 12px;
+  border: 2px solid var(--red);
+  text-shadow: 0 0 10px var(--red);
+}
+
+/* Aged paper effect */
+.wanted-poster::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 20% 20%, rgba(139, 115, 85, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(139, 115, 85, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* ============================================
+   STICKER / BADGE STYLES
+   ============================================ */
+
+.sticker {
+  display: inline-block;
+  padding: 2px 8px;
+  font-family: var(--font-marker), 'Permanent Marker', cursive;
+  font-size: 11px;
+  transform: rotate(-3deg);
+  border-radius: 2px;
+  box-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+}
+
+.sticker-hot {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a5a);
+  color: white;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+}
+
+.sticker-new {
+  background: linear-gradient(135deg, #7cb87c, #6aa86a);
+  color: white;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+}
+
+.sticker-moon {
+  background: linear-gradient(135deg, #ffd700, #ffb700);
+  color: #333;
+  text-shadow: none;
+}
+
+.sticker-dead {
+  background: linear-gradient(135deg, #666, #444);
+  color: #999;
+}
+
+/* ============================================
+   SPRAY PAINT PROGRESS BAR
+   ============================================ */
+
+.spray-progress {
+  position: relative;
+  height: 12px;
+  background: var(--bg-elevated);
+  border-radius: 0;
+  overflow: visible;
+}
+
+.spray-progress-bar {
+  height: 100%;
+  position: relative;
+  background: linear-gradient(90deg, var(--brown-muted), var(--brown-primary));
+  /* Spray drip effect */
+  clip-path: polygon(
+    0% 0%, 
+    100% 0%, 
+    100% 70%,
+    98% 100%,
+    95% 70%,
+    90% 90%,
+    85% 70%,
+    80% 85%,
+    75% 70%,
+    70% 100%,
+    65% 70%,
+    60% 80%,
+    55% 70%,
+    50% 95%,
+    45% 70%,
+    40% 85%,
+    35% 70%,
+    30% 100%,
+    25% 70%,
+    20% 80%,
+    15% 70%,
+    10% 90%,
+    5% 70%,
+    2% 100%,
+    0% 70%
+  );
+}
+
+.spray-progress-bar.normal {
+  background: linear-gradient(90deg, var(--brown-muted), var(--brown-primary));
+}
+
+.spray-progress-bar.warm {
+  background: linear-gradient(90deg, #d4b96a, #ffd700);
+}
+
+.spray-progress-bar.hot {
+  background: linear-gradient(90deg, #e05555, #ff6b6b);
+  animation: hotPulse 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes hotPulse {
+  from { filter: brightness(1); }
+  to { filter: brightness(1.3); }
+}
+
+/* ============================================
+   NEON GLOW EFFECTS
+   ============================================ */
+
+.neon-green {
+  color: #39ff14;
+  text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14, 0 0 20px #39ff14;
+}
+
+.neon-red {
+  color: #ff073a;
+  text-shadow: 0 0 5px #ff073a, 0 0 10px #ff073a, 0 0 20px #ff073a;
+}
+
+/* Big trade glow effect */
+.big-trade-glow {
+  animation: big-trade-pulse 2s ease-in-out infinite;
+}
+
+@keyframes big-trade-pulse {
+  0%, 100% { 
+    box-shadow: 0 0 0 0 rgba(255, 215, 0, 0);
+  }
+  50% { 
+    box-shadow: 0 0 15px 3px rgba(255, 215, 0, 0.4), 
+                0 0 30px 5px rgba(255, 215, 0, 0.2);
+  }
+}
+
+/* ============================================
+   LIGHTWEIGHT CHARTS - HIDE TRADINGVIEW LOGO
+   ============================================ */
+
+/* Hide the TradingView watermark/attribution link */
+.tv-lightweight-charts a[href*="tradingview.com"],
+div[class*="tv-lightweight-charts"] a,
+a[title*="TradingView"],
+a[href*="tradingview.com"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* ============================================
+   CUSTOM SCROLLBAR
+   ============================================ */
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: var(--bg-card);
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--brown-muted);
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--brown-primary);
+}
