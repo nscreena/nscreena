@@ -73,6 +73,19 @@ export function Footer() {
             >
               Realest Niggas
             </Link>
+            <span className="text-text-muted/20 hidden sm:inline">|</span>
+            <Link 
+              href="/terms" 
+              className="text-text-muted hover:text-cream transition-colors hidden sm:inline"
+            >
+              Terms
+            </Link>
+            <Link 
+              href="/privacy" 
+              className="text-text-muted hover:text-cream transition-colors hidden sm:inline"
+            >
+              Privacy
+            </Link>
             <a 
               href="https://x.com/nscreena" 
               target="_blank" 
